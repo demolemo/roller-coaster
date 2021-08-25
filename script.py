@@ -173,20 +173,32 @@ def plot_inversions_bar():
 
 # Test func call
 # plot_inversions_bar()
-plt.clf()
 
 # write function to plot pie chart of operating status here:
+def plot_pie(roller_coaster):
+    grouped_by_status = roller_coaster.groupby(['status']).count().reset_index()
+    status_cnt = grouped_by_status[['status', 'name']].reset_index()
+    status_cnt.status = status_cnt.status.apply(lambda x: x.split('.')[1:])
+    status_cnt = status_cnt.sort_values('name')
+
+    legend = []
+    for list in status_cnt.status.tolist():
+        string = ' '.join(list)
+        legend.append(string.capitalize())
+
+    explode = [0, 0, 0, 0, 0, 0, 0, 0, 0.2]
+    plt.figure(figsize=(10,8))
+    ax = plt.subplot()
+    plt.pie(status_cnt.name, autopct='%1.1f%%', explode=explode, shadow=True,\
+            pctdistance=1.2)
+    plt.title('Roller-Coasters status distribution')
+    plt.axis('equal')
+    plt.legend(legend)
+    plt.show()
 
 
-
-
-
-
-
-
-
-
-plt.clf()
+# Pie func test
+# plot_pie(roller_coaster)
 
 # write function to create scatter plot of any two numeric columns here:
 
