@@ -166,7 +166,7 @@ def plot_inversions_bar():
     ax.set_xticks(range(13))
     plt.xlabel('Number of Inversions')
     plt.ylabel('Roller Coaster count')
-    plt.title('Shitting yourself on a ride')
+    plt.title('Hardest rides rating')
     ax.set_xticklabels(grouped_by_cnt.num_inversions)
     plt.show()
 
@@ -219,9 +219,41 @@ def plot_scatter(column_a, column_b):
 # plot_scatter('length', 'height')
 
 
+def plot_bar_seattype():
+    plt.figure(figsize=(10, 8))
+    ax = plt.subplot()
+    grouped_by_seat = roller_coaster.groupby(['seating_type']).count().reset_index()
+    x_scale = grouped_by_seat.seating_type.tolist()
+    y_scale = np.log(grouped_by_seat.status.tolist())
+    y_labels = ['e ** ' + str(i) for i in range(9)]
 
-print(roller_coaster.info())
-print(roller_coaster.head())
+    plt.bar(range(len(x_scale)), y_scale, color='#7C2C2C')
+    plt.xlabel('Seating type')
+    plt.ylabel('Count(logged)')
+    plt.title('Seating type count (logged)')
+    ax.set_xticks(range(len(x_scale)))
+    ax.set_xticklabels(x_scale)
+    ax.set_yticklabels(y_labels)
+    plt.xticks(rotation=45)
+    plt.show()
 
 
-print(roller_coaster.nunique())
+
+# PLot bar seating_type test
+# plot_bar_seattype()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#end)
