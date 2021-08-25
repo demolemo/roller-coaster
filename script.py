@@ -7,7 +7,7 @@ wood = pd.read_csv('./Golden_Ticket_Award_Winners_Wood.csv')
 roller_coaster = pd.read_csv('./roller_coasters.csv')
 # print(wood.head())
 # print(steel.head())
-# #
+# print(roller_coaster.head())
 # print(wood.info())
 # print(steel.info())
 # print(roller_coaster.info())
@@ -71,7 +71,6 @@ def double_plot_rankings(coaster_a, park_a, coaster_b, park_b):
     years_b = df_b['Year of Rank']
     ranking_b = df_b['Rank']
 
-
     if len(years_a) == 0 or len(years_b) == 0:
         return 0
     else:
@@ -87,23 +86,49 @@ def double_plot_rankings(coaster_a, park_a, coaster_b, park_b):
         plt.show()
 
 
-print(double_plot_rankings('El Toro', 'Six Flags Great Adventure', \
-                     'Boulder Dash', 'Lake Compounce'))
-# plot_rankings('Boulder Dash', 'Lake Compounce')
+# Func check
+# print(double_plot_rankings('El Toro', 'Six Flags Great Adventure', \
+#                      'Boulder Dash', 'Lake Compounce'))
 
 # write function to plot top n rankings over time here:
 
+def top_ranked(num, material):
+    if material == 'Wood':
+        df = wood
+    else:
+        df = steel
 
+    legend = []
+    plt.figure(figsize=(10,8))
+    ax = plt.subplot()
+    min_rank = 100
+    max_rank = 0
+    for i in range(num):
+        coaster = df.loc[i, 'Name']
+        park = df.loc[i, 'Park']
+        df_i = df.loc[(df.Name == coaster) & (df.Park == park)]
+        years_i = df_i['Year of Rank']
+        ranking_i = df_i['Rank']
+        plt.plot(years_i, ranking_i)
+        legend.append(coaster)
 
+        min_rank_i = df_i['Rank'].min()
+        max_rank_i = df_i['Rank'].max()
+        if min_rank_i < min_rank:
+            min_rank = min_rank_i
+        if max_rank_i > max_rank:
+            max_rank = max_rank_i
+    plt.xlabel('Years')
+    plt.ylabel('Rank')
+    plt.legend(legend)
+    plt.title('Top {} roller-coasters rankings'.format(num))
+    ax.set_yticks(range(min_rank, max_rank))
+    ax.invert_yaxis()
+    plt.show()
 
-
-
-
-
-
-
-plt.clf()
-
+# Func tests
+# top_ranked(5, 'Wood')
+# top_ranked(6, 'Steel')
 # load roller coaster data here:
 
 
