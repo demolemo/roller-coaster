@@ -242,6 +242,8 @@ def plot_bar_seattype():
 # PLot bar seating_type test
 # plot_bar_seattype()
 
+print(roller_coaster.info())
+print(roller_coaster.nunique())
 
 
 
