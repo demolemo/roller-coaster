@@ -5,14 +5,6 @@ import matplotlib.pyplot as plt
 steel = pd.read_csv('./Golden_Ticket_Award_Winners_Steel.csv')
 wood = pd.read_csv('./Golden_Ticket_Award_Winners_Wood.csv')
 roller_coaster = pd.read_csv('./roller_coasters.csv')
-# print(wood.head())
-# print(steel.head())
-# print(roller_coaster.head())
-# print(wood.info())
-# print(steel.info())
-# print(roller_coaster.info())
-
-
 
 
 # write function to plot rankings over time for 1 roller coaster here:
@@ -135,15 +127,26 @@ def top_ranked(num, material):
 
 # write function to plot histogram of column values here:
 
+def plot_histogram(column):
+    if column == 'speed':
+        bin_num = 12
+    elif column == 'height':
+        bin_num = 30
+    elif column == 'length':
+        bin_num = 15
+    elif column == 'num_inversations':
+        bin_num = 7
 
+    plt.figure(figsize=(10, 8))
+    ax = plt.subplot()
+    plt.hist(roller_coaster[column], bins=bin_num, color='#5B5BC1')
+    plt.xlabel(column)
+    plt.ylabel('Number of coasters')
+    plt.title('{} distribution across roller-coasters'.format(column))
+    plt.show()
 
-
-
-
-
-
-
-
+# plot_histogram('height')
+# plot_histogram('speed')
 plt.clf()
 
 # write function to plot inversions by coaster at a park here:
