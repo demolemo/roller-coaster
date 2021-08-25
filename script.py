@@ -175,7 +175,7 @@ def plot_inversions_bar():
 # plot_inversions_bar()
 
 # write function to plot pie chart of operating status here:
-def plot_pie(roller_coaster):
+def plot_pie():
     grouped_by_status = roller_coaster.groupby(['status']).count().reset_index()
     status_cnt = grouped_by_status[['status', 'name']].reset_index()
     status_cnt.status = status_cnt.status.apply(lambda x: x.split('.')[1:])
@@ -198,17 +198,30 @@ def plot_pie(roller_coaster):
 
 
 # Pie func test
-# plot_pie(roller_coaster)
+# plot_pie()
 
 # write function to create scatter plot of any two numeric columns here:
+def plot_scatter(column_a, column_b):
+    plt.figure(figsize=(10, 8))
+    ax = plt.subplot()
+    x_scale = roller_coaster[column_a]
+    y_scale = roller_coaster[column_b]
+
+    plt.scatter(x_scale, y_scale, color='green', s=1)
+    plt.xlabel(column_a.capitalize())
+    plt.ylabel(column_b.capitalize())
+    plt.title('{} VS {}'.format(column_a.capitalize(), column_b.capitalize()))
+    plt.show()
+
+# Plot scatter without normalizing test func
+# plot_scatter('height', 'speed')
+# plot_scatter('length', 'speed')
+# plot_scatter('length', 'height')
 
 
 
+print(roller_coaster.info())
+print(roller_coaster.head())
 
 
-
-
-
-
-
-plt.clf()
+print(roller_coaster.nunique())
