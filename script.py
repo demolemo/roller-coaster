@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # load rankings data here:
 steel = pd.read_csv('./Golden_Ticket_Award_Winners_Steel.csv')
@@ -130,36 +131,48 @@ def top_ranked(num, material):
 def plot_histogram(column):
     if column == 'speed':
         bin_num = 12
+        data = roller_coaster[column]
     elif column == 'height':
-        bin_num = 30
+        bin_num = 15
+        data = np.log(roller_coaster[column])
     elif column == 'length':
         bin_num = 15
-    elif column == 'num_inversations':
-        bin_num = 7
+        data = np.log(roller_coaster[column])
 
     plt.figure(figsize=(10, 8))
     ax = plt.subplot()
-    plt.hist(roller_coaster[column], bins=bin_num, color='#5B5BC1')
-    plt.xlabel(column)
+    if column == 'height':
+        plt.hist(data, bins=bin_num, range=(0,7), color='#5B5BC1')
+        plt.title('Height(log) distribution across roller-coasters')
+    else:
+        plt.hist(data, bins=bin_num, color='#5B5BC1')
+        plt.title('{} distribution across roller-coaters'.format(column.capitalize()))
+    plt.xlabel(column.capitalize())
     plt.ylabel('Number of coasters')
-    plt.title('{} distribution across roller-coasters'.format(column))
     plt.show()
 
+# Test func call
 # plot_histogram('height')
 # plot_histogram('speed')
-plt.clf()
 
 # write function to plot inversions by coaster at a park here:
 
+def plot_inversions_bar():
+    plt.figure(figsize=(10,8))
+    ax = plt.subplot()
+    grouped_by_cnt = roller_coaster.groupby(['num_inversions']).count().reset_index()
+    print(grouped_by_cnt)
+    plt.bar(range(13), grouped_by_cnt.name)
+    ax.set_xticks(range(13))
+    plt.xlabel('Number of Inversions')
+    plt.ylabel('Roller Coaster count')
+    plt.title('Shitting yourself on a ride')
+    ax.set_xticklabels(grouped_by_cnt.num_inversions)
+    plt.show()
 
 
-
-
-
-
-
-
-
+# Test func call
+# plot_inversions_bar()
 plt.clf()
 
 # write function to plot pie chart of operating status here:
