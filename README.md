@@ -1,5 +1,5 @@
 # Roller Coaster analysis project
-Plotting different types of graphs to compare roller-coaster rankings throughout years</br>
+Plotting different types of graphs to research roller-coasters in deep</br>
 Funcs:
 * plot_rankings - depicts the change in rank for selected roller-coaster
 * double_plot_rankings - depicts the change in rank for two selected roller-coasters
